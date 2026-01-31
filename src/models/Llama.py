@@ -50,9 +50,9 @@ class Llama(Model):
         with torch.no_grad():
             outputs = self.model.generate(
                 input_ids,
-                temperature=self.temperature,
                 max_new_tokens=self.max_output_tokens,
-                do_sample=True if self.temperature > 0 else False,
+                do_sample=self.temperature > 0,
+                **({"temperature": self.temperature} if self.temperature > 0 else {}),
                 pad_token_id=self.tokenizer.pad_token_id,
                 eos_token_id=self.tokenizer.eos_token_id
             )

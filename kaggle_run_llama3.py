@@ -67,7 +67,7 @@ def clean_str(s: str) -> str:
     """Clean and normalize string for comparison"""
     try:
         s = str(s)
-    except:
+    except Exception:
         print('Error: the output cannot be converted to a string')
     s = s.strip()
     if len(s) > 1 and s[-1] == ".":
@@ -149,8 +149,8 @@ class Llama3Instruct:
             outputs = self.model.generate(
                 input_ids,
                 max_new_tokens=self.max_output_tokens,
-                temperature=self.temperature,
-                do_sample=True if self.temperature > 0 else False,
+                do_sample=self.temperature > 0,
+                **({"temperature": self.temperature} if self.temperature > 0 else {}),
                 pad_token_id=self.tokenizer.pad_token_id,
                 eos_token_id=self.tokenizer.eos_token_id
             )
@@ -652,8 +652,8 @@ def main():
             from kaggle_secrets import UserSecretsClient
             user_secrets = UserSecretsClient()
             hf_token = user_secrets.get_secret("HF_TOKEN")
-        except:
-            pass
+        except (ImportError, Exception):
+            pass  # Not running on Kaggle or secret not available
     
     if not hf_token:
         print("ERROR: Hugging Face token not found!")

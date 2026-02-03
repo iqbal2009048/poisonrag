@@ -1,0 +1,27 @@
+{
+  "dataset": "nq",
+  "split": "test",
+  "num_queries": 2,
+  "queries": [
+    {
+      "id": 1,
+      "original_id": "sample_id_1",
+      "query": "What is the safe dosage of ibuprofen?",
+      "ground_truth": "The recommended dose is 200-400mg every 4-6 hours, not exceeding 1200mg/day OTC.",
+      "all_ground_truth_ids": [
+        "doc1"
+      ],
+      "category": "medical"
+    },
+    {
+      "id": 2,
+      "original_id": "sample_id_2",
+      "query": "Who wrote the novel '1984'?",
+      "ground_truth": "George Orwell wrote the dystopian novel '1984', published in 1949.",
+      "all_ground_truth_ids": [
+        "doc2"
+      ],
+      "category": "literature"
+    }
+  ]
+}
